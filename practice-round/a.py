@@ -10,13 +10,11 @@ t = int(input())
 for _ in range(t):
     a,b = input().split()
     a,b = int(a),int(b) # range (a,b]
-    # print(a,b)
     n = int(input())
     for _ in range(n):
-        nums = list(range(a+1,b+1))
-        # print(nums,file='log.txt')
-        guess = nums[(len(nums)+1)//2-1]
-        # print([guess])
+        # nums = list(range(a+1,b+1))
+        # guess = nums[(len(nums)+1)//2-1]
+        guess = (a+b+1)//2
         print(guess,flush=True)
         reply = input()
         if reply == 'CORRECT':

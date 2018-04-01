@@ -5,23 +5,24 @@ import os
 import sys
 
 global_filename = ''
+global_stdin = ''
 
 class MyHandler(PatternMatchingEventHandler):
   patterns = ["*.py"]
 
-  # def __init__(self, file):
-  #   self.filename = file
-  #   print(self.filename)
-
   def on_modified(self, event):
-    # print('hello')
-    # print(self.file[0])
-    # os.system("python testing_tool.py python"+self.file[0])
-    os.system("python3 testing_tool.py python3 "+global_filename)
+    # os.system("python3 testing_tool.py python3 "+global_filename) # problem a
+    msg = "python3 "+global_filename
+    if global_stdin:
+      msg += " < "+global_stdin
+    os.system(msg)
 
 if __name__ == "__main__":
   args = sys.argv[1:]
-  global_filename = args[0]
+  if args[0]:
+    global_filename = args[0]
+  if args[1]:
+    global_stdin = args[1]
   observer = Observer()
   observer.schedule(MyHandler(), path='.')
   # observer.schedule(MyHandler(args[0]), path='.')
