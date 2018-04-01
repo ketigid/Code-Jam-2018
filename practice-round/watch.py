@@ -4,6 +4,8 @@ from watchdog.events import PatternMatchingEventHandler
 import os
 import sys
 
+global_filename = ''
+
 class MyHandler(PatternMatchingEventHandler):
   patterns = ["*.py"]
 
@@ -15,12 +17,13 @@ class MyHandler(PatternMatchingEventHandler):
     # print('hello')
     # print(self.file[0])
     # os.system("python testing_tool.py python"+self.file[0])
-    os.system("python3 testing_tool.py python3 p1.py")
+    os.system("python3 testing_tool.py python3 "+global_filename)
 
 if __name__ == "__main__":
   args = sys.argv[1:]
+  global_filename = args[0]
   observer = Observer()
-  observer.schedule(MyHandler(), path=args[0] if args else '.')
+  observer.schedule(MyHandler(), path='.')
   # observer.schedule(MyHandler(args[0]), path='.')
   observer.start()
   print('Started watching {}'.format(args[0]))
